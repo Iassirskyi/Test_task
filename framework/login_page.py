@@ -1,13 +1,22 @@
 from .page import Page
+import time
 
 
 class LoginPage(Page):
-    # LOGIN = 'qa.ajax.app.automation@gmail.com'
-    # PASSWORD = 'qa_automation_password'
+
     LOGIN = 'com.ajaxsystems:id/login'
     PASSWORD = 'com.ajaxsystems:id/password'
     NEXT_PAGE = 'com.ajaxsystems:id/next'
 
+    def get_login_text(self):
+        return self.find_element(self.LOGIN)
+    
+    def get_password_text(self):
+        return self.find_element(self.PASSWORD)
+
+    def wait(self):
+        return time.sleep(5)
+    
     def tap_login(self):
         self.click_element(self.LOGIN)
     
