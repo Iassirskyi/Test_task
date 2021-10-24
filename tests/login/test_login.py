@@ -28,22 +28,27 @@ def test_input_password(user_login_fixture, user_password, expected_result):
 
 
 
-
-# @pytest.mark.parametrize('user_login, user_password, expected_result', [
-#     ('t.tester@gmail.com', 'test_password', 'Back'),
-#     ('qa.ajax.app.automation@gmail.com', 'qa_automation_password', 'Back'),
-# ])
-# def test_user_login(user_login_fixture, user_login, user_password, expected_result):
-#     page = user_login_fixture.create_page(LoginPage)
-#     page.wait()
-#     page.tap_login()
-#     page.driver.implicitly_wait(5)
-#     page.enter_login(user_login)
-#     page.tap_password()
-#     page.enter_password(user_password)
-#     page.driver.implicitly_wait(5)
-#     page.tap_next()
-#     page.driver.implicitly_wait(5)
-#     assert expected_result in page.find_element_by_class('android.widget.TextView').text
+@pytest.mark.parametrize('user_login, user_password', [
+    ('abra_cadabrd', 'abra_cadabrd_password'),
+    ('tester@gmail.com', 'tester_test')
+])
+def test_invalid_login_password(user_login_fixture, user_login, user_password):
+    user_login_fixture.enter_login(user_login)
+    user_login_fixture.enter_password(user_password)
+    user_login_fixture.tap_next()
+    user_login_fixture.wait()
+    assert 'Log In' == user_login_fixture.get_next_text().text
 
 
+@pytest.mark.parametrize('user_login, user_password, expected_result', [
+    ('qa.ajax.app.automation@gmail.com', 'qa_automation_password', 'Add')
+])
+def test_valid_login_password(user_login_fixture, user_login, user_password, expected_result):
+    user_login_fixture.enter_login(user_login)
+    user_login_fixture.enter_password(user_password)
+    user_login_fixture.wait()
+    user_login_fixture.tap_next()
+    user_login_fixture.wait()
+    user_login_fixture.tap_cancel_button()
+    user_login_fixture.wait()
+    assert expected_result in user_login_fixture.valid_login().text
