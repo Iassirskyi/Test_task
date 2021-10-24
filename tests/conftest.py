@@ -1,6 +1,8 @@
 import subprocess
 import time
 
+import logging
+
 import pytest
 from appium import webdriver
 
@@ -29,3 +31,18 @@ def driver(run_appium_server):
 @pytest.fixture(scope='session')
 def page_manager(driver):
     return PagesManager(driver)
+
+
+
+@pytest.fixture(scope='session')
+def logger():
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
+    
+    formatter = logging.Formatter('%(asctime)s:%(filename)s:%(funcName)s:%(levelno)s:%(message)s')
+    
+    file_handler = logging.FileHandler('login_test.log')
+    file_handler.setFormatter(formatter)
+
+    logger.addHandler(file_handler)
+    yield logger

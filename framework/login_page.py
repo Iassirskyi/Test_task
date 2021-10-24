@@ -16,16 +16,18 @@ class LoginPage(Page):
     
     def tap_login(self):
         self.click_element(self.LOGIN)
+        self.wait()
     
     def get_login_text(self):
         return self.find_element(self.LOGIN)
     
     def tap_password(self):
         self.click_element(self.PASSWORD)
+        self.wait()
     
     def get_password_text(self):
         return self.find_element(self.PASSWORD)
-
+    
     def enter_login(self, user_login):
         self.input(self.LOGIN, text=user_login)
     
@@ -34,12 +36,14 @@ class LoginPage(Page):
     
     def tap_next(self):
         self.click_element(self.NEXT_PAGE)
+        self.wait()
     
     def get_next_text(self):
         return self.find_element(self.NEXT_PAGE)
     
     def tap_cancel_button(self):
         self.click_element(self.CANCEL_BUTTON)
+        self.wait()
 
     def valid_login(self):
         return self.find_element(self.LOGIN_ACCESS)
